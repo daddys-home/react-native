@@ -51,7 +51,7 @@
           const city = this.props.navigation.getParam('city', null);
           // const city = 'Daejeon';
   
-          fetch(`http://api.openweathermap.org/data/2.5/weather?	    q=${city}&appid=78e00047d7bce6188096b68c5823fd7f`)
+          fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=78e00047d7bce6188096b68c5823fd7f`)
               .then(response => response.json())
               .then(info => {
                   this.setState({

@@ -2,24 +2,25 @@
 
 # 12조 React Native Assignment
 
-- 시연 영상입니다.
-  <img src="./screenshots/test.gif" width="300">
+## 시연 영상
+
+<img src="./screenshots/test.gif" width="300">
 
 
-
+## 보충설명
 - 먼저  splash 화면 입니다. 앱이 처음 구동될때 몇초간 나타나는 화면을 구현 하였습니다.
-  <img src="./screenshots/Screenshot_1563970810.png" width="300">
+	- <img src="./screenshots/Screenshot_1563970810.png" width="300">
 
   
 
 - 홈화면으로 현재 날씨를 볼 수 있는 도시의 이름들이 알파벳 순으로 정렬되어 리스트로 나타납니다.
-  <img src="./screenshots/Screenshot_1563970838.png" width="300">
+	- <img src="./screenshots/Screenshot_1563970838.png" width="300">
 
 
 
 
-- 도시이름을 누르면 화면이 바뀌고, 선택된 도시의 현재 날씨 데이터를 서버나, API를 통해 가져오는동안 loading gif를 이용하여 직관적인 로딩상태를 나타냅니다.
-<img src="./screenshots/Screenshot_1563970844.png" width="300">
+- 도시이름을 누르면 화면이 바뀌고, 선택된 도시의 현재 날씨 데이터를 서버나, API를 통해 가져오는동안 loading gif를 이용하여 직관적인 로딩상태를 나타냅니다. 
+	- <img src="./screenshots/Screenshot_1563970844.png" width="300">
 
 
 

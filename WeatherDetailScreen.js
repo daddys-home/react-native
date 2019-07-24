@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Image} from 'react-native';
-import { Constants } from 'expo';
+import {StyleSheet, Text, View, Image, ImageBackground} from 'react-native';
 
 export default class WeatherDetailScreen extends React.Component {
 
@@ -15,6 +14,9 @@ export default class WeatherDetailScreen extends React.Component {
 
         this.state = {
             isLoading: true,
+            umbrellaMessage: null,
+            isRain: null,
+            icon: null,
         };
     }
 
@@ -30,28 +32,47 @@ export default class WeatherDetailScreen extends React.Component {
                     isLoading: false,
                 });
             });
+
     }
 
     render() {
 
         if (this.state.isLoading) {
             return (
-                <View style={styles.container}>
-                    <Text>데이터를 불러오는 중입니다.</Text>
-                </View>
+                <ImageBackground style={styles.background} source={require('./assets/images/background.png')}>
+                    <View style={styles.container}>
+                        <Image style={{width: 100, height: 100}} source={require('./assets/images/loading.gif')}/>
+                    </View>
+                </ImageBackground>
             )
         }
 
+        this.state.icon = this.state.weather[0].icon;
+
+        if(this.state.icon=='10d'||this.state.icon=='09d' ||this.state.icon=='11d'||this.state.icon=='13d'){
+
+            this.state.umbrellaMessage = '우산 좀 챙기라고!';
+            this.state.isRain = true;
+
+        } else {
+            this.state.umbrellaMessage = '우산 안 챙겨도 돼요~~~';
+        }
+
+        let icon = this.state.isRain
+            ? require('./assets/images/rainingUmbrella.gif')
+            : require('./assets/images/sun.gif');
+
         return (
 
-                <View style={styles.item}>
-                    <Image  style={{ width: 200, height: 90}} source={{uri: 'http://openweathermap.org/img/wn/'+this.state.weather[0].icon+'@2x.png'}} />
-                    <Text style={styles.textDescription}>{this.state.weather[0].description}</Text>
-                    <Text style={styles.text}>현재 기온: {(this.state.main.temp- 273.15).toFixed(1)}℃</Text>
-                    <Text style={styles.textBlue}>{(this.state.main.temp_min-273.15).toFixed(1)}℃ / <Text style={styles.textRed}>{(this.state.main.temp_max-273.15).toFixed(1)}℃</Text></Text>
-                    <Text style={styles.textAtmSpeed}>기압: {this.state.main.pressure.toFixed(0)}hPa / <Text style={styles.textAtmSpeed}>풍속: {this.state.wind.speed}m/s / </Text><Text style={styles.textHumidity}>습도: {this.state.main.humidity}%</Text></Text>
-
-                </View>
+            <View style={styles.item}>
+                <Image style={{ width: 200, height: 150}} source={{uri: 'http://openweathermap.org/img/wn/'+this.state.icon+'@2x.png'}} />
+                <Text style={styles.textDescription}>{this.state.weather[0].description}</Text>
+                <Text style={styles.text}>현재 기온: {(this.state.main.temp- 273.15).toFixed(1)}℃</Text>
+                <Text style={styles.textBlue}>{(this.state.main.temp_min-273.15).toFixed(1)}℃ / <Text style={styles.textRed}>{(this.state.main.temp_max-273.15).toFixed(1)}℃</Text></Text>
+                <Text style={styles.textAtmSpeed}>기압: {this.state.main.pressure.toFixed(0)}hPa / <Text style={styles.textAtmSpeed}>풍속: {this.state.wind.speed}m/s / </Text><Text style={styles.textHumidity}>습도: {this.state.main.humidity}%</Text></Text>
+                <Text style={styles.text}>{this.state.umbrellaMessage}</Text>
+                <Image style={{ width: 300, height: 290}} source={icon} />
+            </View>
 
 
 
@@ -60,15 +81,19 @@ export default class WeatherDetailScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    background: {
+        resizeMode: 'stretch',
+        width: '100%',
+        height: '100%',
+    },
+
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        marginTop: Constants.statusBarHeight,
-
+        alignItems: 'center',
+        justifyContent: 'center'
     },
-   item: {
+    item: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
     },
     textDescription: {

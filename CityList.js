@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {FlatList, StyleSheet, Text, TouchableOpacity, ImageBackground} from 'react-native';
 import {Constants} from 'expo';
 
 
@@ -34,40 +34,63 @@ export default class CityList extends React.Component {
     renderItem(city) {
         return (
             <TouchableOpacity style={styles.item} onPress={() => this.onPressCity(city)}>
-                <Text style={styles.text}>{city}</Text>
+                <Text style={styles.text1}>  {city}</Text>
+                <Text style={styles.text2}>>  </Text>
             </TouchableOpacity>
+
         );
     }
 
     render() {
         return (
-            <FlatList style={styles.container}
-                      renderItem={({item}) => this.renderItem(item)}
-                      keyExtractor={item => item}
-                      data={this.state.cities}
-            />
+            <ImageBackground style={styles.background} source={require('./assets/images/background.png')}>
+                <FlatList style={styles.container}
+                          renderItem={({item}) => this.renderItem(item)}
+                          keyExtractor={item => item}
+                          data={this.state.cities}
+                />
+            </ImageBackground>
         );
     }
 }
 
 
 const styles = StyleSheet.create({
+    background: {
+        resizeMode: 'cover',
+        width: '100%',
+        height: '100%',
+    },
+
     container: {
         flex: 1,
-        backgroundColor: '#fff',
         marginTop: Constants.statusBarHeight,
     },
 
     item: {
         flex: 1,
+        flexDirection: 'row',
         height: 50,
+        borderWidth: 1,
+        borderColor: 'white',
+        margin: 10,
         justifyContent: 'center',
-
     },
 
-    text: {
+    text1: {
+        flex: 5,
         fontSize: 30,
-        textAlign: 'center',
+        textAlign: 'left',
+        color: '#fff',
+        fontWeight: 'bold'
+
+    },
+    text2: {
+        flex: 1,
+        fontSize: 30,
+        textAlign: 'right',
+        color: '#fff',
+        fontWeight: 'bold'
     }
 
 });

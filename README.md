@@ -36,7 +36,7 @@
 	
 	- 그 밑에는 현재기온, 최저, 최고 기온, 기압, 풍속, 및 습도에 대한 정보를 제공합니다.
 	
-	- 마지막으로 "우산 안 챙겨도 돼요", 또는 "우산 좀 챙기라고"라는 메시지를 통해 사용자들에게 우산의 필요 여부를 알려주며 하단에는 비가오지 않을 시 태양모양의 gif를, 비가 내릴 시 우산과 비가내리는 풍경의 gif를 넣어 메시지를 더욱 강조 하였습니다.
+	- 마지막으로 "우산 안 챙겨도 돼요", 또는 "우산 좀 챙기라고"라는 메시지를 통해 사용자들에게 우산의 필요 여부를 알려주며 `this.state.weather[0].icon`의 값으로 강우에 대해 판단하여 하단에는 비가오지 않을 시 태양모양의 gif를, 비가 내릴 시 우산과 비가내리는 풍경의 gif를 넣어 메시지를 더욱 강조 하였습니다.
 	
 	- 아래는 현재 비가 내릴시 현재 날씨 정보 제공 화면입니다.
 	
@@ -48,19 +48,18 @@
 
   ```javascript
   componentDidMount() {
-          const city = this.props.navigation.getParam('city', null);
-          // const city = 'Daejeon';
+      const city = this.props.navigation.getParam('city', null);
+      // const city = 'Daejeon';
   
-          fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=78e00047d7bce6188096b68c5823fd7f`)
-              .then(response => response.json())
-              .then(info => {
-                  this.setState({
-                      ...info,
-                      isLoading: false,
-                  });
+      fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=78e00047d7bce6188096b68c5823fd7f`)
+          .then(response => response.json())
+          .then(info => {
+              this.setState({
+                  ...info,
+                  isLoading: false,
               });
-  
-      }
+           });
+  }
   ```
 
   

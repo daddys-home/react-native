@@ -16,7 +16,6 @@ export default class WeatherDetailScreen extends React.Component {
             isLoading: true,
             umbrellaMessage: null,
             isRain: null,
-            icon: null,
         };
     }
 
@@ -47,9 +46,10 @@ export default class WeatherDetailScreen extends React.Component {
             )
         }
 
-        this.state.icon = this.state.weather[0].icon;
+        const icon = this.state.weather[0].icon;
 
-        if(this.state.icon=='10d'||this.state.icon=='09d' ||this.state.icon=='11d'||this.state.icon=='13d'){
+        if(icon=='10d'||icon=='09d' ||icon=='11d'||icon=='13d'||
+            icon=='10n'||icon=='09n'||icon=='11n'||icon=='13n'){
 
             this.state.umbrellaMessage = '우산 좀 챙기라고!';
             this.state.isRain = true;
@@ -58,23 +58,21 @@ export default class WeatherDetailScreen extends React.Component {
             this.state.umbrellaMessage = '우산 안 챙겨도 돼요~~~';
         }
 
-        let icon = this.state.isRain
+        const gif = this.state.isRain
             ? require('./assets/images/rainingUmbrella.gif')
             : require('./assets/images/sun.gif');
 
         return (
 
             <View style={styles.item}>
-                <Image style={{ width: 200, height: 150}} source={{uri: 'http://openweathermap.org/img/wn/'+this.state.icon+'@2x.png'}} />
+                <Image style={{ width: 200, height: 150}} source={{uri: 'http://openweathermap.org/img/wn/'+icon+'@2x.png'}} />
                 <Text style={styles.textDescription}>{this.state.weather[0].description}</Text>
                 <Text style={styles.text}>현재 기온: {(this.state.main.temp- 273.15).toFixed(1)}℃</Text>
                 <Text style={styles.textBlue}>{(this.state.main.temp_min-273.15).toFixed(1)}℃ / <Text style={styles.textRed}>{(this.state.main.temp_max-273.15).toFixed(1)}℃</Text></Text>
                 <Text style={styles.textAtmSpeed}>기압: {this.state.main.pressure.toFixed(0)}hPa / <Text style={styles.textAtmSpeed}>풍속: {this.state.wind.speed}m/s / </Text><Text style={styles.textHumidity}>습도: {this.state.main.humidity}%</Text></Text>
                 <Text style={styles.text}>{this.state.umbrellaMessage}</Text>
-                <Image style={{ width: 300, height: 290}} source={icon} />
+                <Image style={{ width: 300, height: 290}} source={gif} />
             </View>
-
-
 
         );
     }

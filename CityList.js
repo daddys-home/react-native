@@ -1,6 +1,5 @@
 import React from 'react';
 import {FlatList, StyleSheet, Text, TouchableOpacity, ImageBackground} from 'react-native';
-import {Constants} from 'expo';
 
 
 export default class CityList extends React.Component {
@@ -44,8 +43,7 @@ export default class CityList extends React.Component {
     render() {
         return (
             <ImageBackground style={styles.background} source={require('./assets/images/background.png')}>
-                <FlatList style={styles.container}
-                          renderItem={({item}) => this.renderItem(item)}
+                <FlatList renderItem={({item}) => this.renderItem(item)}
                           keyExtractor={item => item}
                           data={this.state.cities}
                 />
@@ -62,13 +60,7 @@ const styles = StyleSheet.create({
         height: '100%',
     },
 
-    container: {
-        flex: 1,
-        marginTop: Constants.statusBarHeight,
-    },
-
     item: {
-        flex: 1,
         flexDirection: 'row',
         height: 50,
         borderWidth: 1,
